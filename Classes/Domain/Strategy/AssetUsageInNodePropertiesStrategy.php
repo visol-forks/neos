@@ -98,4 +98,17 @@ class AssetUsageInNodePropertiesStrategy extends AbstractAssetUsageStrategy
 
         return $this->nodeDataRepository->findNodesByPathPrefixAndRelatedEntities(SiteService::SITES_ROOT_PATH, $relationMap);
     }
+    
+    /**
+     * Removes an item from first-level cache so it needs to be fetched again
+     *
+     * @param string $assetIdentifier
+     */
+    public function removeItemFromFirstlevelCache($assetIdentifier)
+    {
+        if (isset($this->firstlevelCache[$assetIdentifier])) {
+            unset($this->firstlevelCache[$assetIdentifier]);
+        }
+    }
+    
 }
