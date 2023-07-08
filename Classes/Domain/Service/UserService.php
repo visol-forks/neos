@@ -900,6 +900,12 @@ class UserService
     private function getNeosUserForAccount(Account $account):? User
     {
         $user = $this->partyService->getAssignedPartyOfAccount($account);
+        if ($user === null) {
+            $user = $this->getUser(
+                $account->getAccountIdentifier(),
+                $account->getAuthenticationProviderName()
+            );
+        }
         return ($user instanceof User) ? $user : null;
     }
 }
